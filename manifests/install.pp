@@ -45,8 +45,9 @@ class opal::install($opal_password='password', $opal_url='http://localhost:8080'
   case $::operatingsystem {
     'Ubuntu': {
       archive { '/tmp/opal_2.14-SNAPSHOT_all.deb' :
-        path   => '/tmp/opal_2.14-SNAPSHOT_all.deb',
-        source => 'https://obiba.jfrog.io/obiba/debian-local/opal_2.14-SNAPSHOT_all.deb'
+        ensure   => present,
+        filename => '/tmp/opal_2.14-SNAPSHOT_all.deb',
+        source   => 'https://obiba.jfrog.io/obiba/debian-local/opal_2.14-SNAPSHOT_all.deb'
       } ->
       package { 'opal':
         provider => dpkg,
