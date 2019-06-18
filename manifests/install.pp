@@ -44,10 +44,14 @@ class opal::install($opal_password='password', $opal_url='http://localhost:8080'
 
   case $::operatingsystem {
     'Ubuntu': {
+      download_file { "Download opal_2.14-SNAPSHOT_all.deb" :
+        url              => 'https://obiba.jfrog.io/obiba/debian-local/opal_2.14-SNAPSHOT_all.deb',
+        destination_file => '/tmp/opal_2.14-SNAPSHOT_all.deb'
+      } ->
       package { 'opal':
         provider => dpkg,
         ensure   => latest,
-        source   => "https://obiba.jfrog.io/obiba/debian-local/opal_2.14-SNAPSHOT_all.deb",
+        source   => '/tmp/opal_2.14-SNAPSHOT_all.deb',
         require  => Class['::r']
       } ~>
       service { 'opal':
